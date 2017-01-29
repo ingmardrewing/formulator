@@ -49,8 +49,6 @@ sub _pdf {
   return $self->{pdf};
 }
 
-
-
 sub _doc_dir {
   my($self, $val) = @_;
   if( $val ){
@@ -105,7 +103,5 @@ sub _finish {
   my ($self) = @_;
   $self->_pdf->save();
 }
-
-
 
 1;
