@@ -44,9 +44,9 @@ my @fields = qw(
   bis_datum
 );
 
-my $datum_underscore =  strftime "%e_%m_%Y", localtime;
-my $datum_dots       =  strftime "%e.%m.%Y", localtime;
 
+# Get get parameters
+my $q = CGI->new;
 my $sender        = get_value('sender');
 my $addr_debeka   = get_value('addr_debeka');
 
@@ -69,6 +69,7 @@ my $pflege               = get_avalue('pflege');
 my $von_datum  = get_value('von_datum');
 my $bis_datum  = get_value('bis_datum');
 
+# preprare data
 my $is_bevm = 1;
 my $bevollmaechtigter = $is_bevm ? '_' x 13 : '' ;
 
@@ -86,14 +87,13 @@ for my $a (@all_amounts){
 }
 my $euro_sum = (join ',',($cent_sum =~ m/(\d*)(\d\d)/));
 
-my @templates = qw(
-  ../templates/template_debeka_02.pdf
-  ../templates/template_beihilfe_01.pdf
-  ../templates/template_beihilfe_02.pdf
-);
-
+my $datum_underscore =  strftime "%e_%m_%Y", localtime;
+my $datum_dots       =  strftime "%e.%m.%Y", localtime;
 my $dir         = 'filled_forms';
 my $filename    = sprintf 'leistungs_antrag_%s.pdf', $datum_underscore;
+
+
+# process pdfs
 my $w = Writer->new({
   filename => '../filled_forms/' . $filename,
   compress => 1,
@@ -156,7 +156,6 @@ $w->add_page({
   ],
 });
 
-my $q = CGI->new;
 
 print $q->header(
     '-type' => 'text/html',
@@ -235,7 +234,6 @@ sub html_template {
       display: inline-block;
       padding: 15px;
       padding-bottom: 30px;
-      
       font-size: 16px;
       width: auto;
       vertical-align: middle;
