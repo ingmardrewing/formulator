@@ -33,17 +33,40 @@ my @fields = qw(
   service_nr
   personalnummer
 
-  arzneimittel
-  ambulante_behandlung
-  krankenhaus
-  zahnbehandlung
-  sonstiges
-  pflege
+  arzneimittel_1
+  arzneimittel_2
+  arzneimittel_3
+  arzneimittel_4
+  arzneimittel_5
+  arzneimittel_8
+  arzneimittel_7
+
+  ambulante_behandlung_1
+  ambulante_behandlung_2
+  ambulante_behandlung_3
+  ambulante_behandlung_4
+  ambulante_behandlung_5
+  ambulante_behandlung_6
+  ambulante_behandlung_7
+  ambulante_behandlung_8
+  ambulante_behandlung_9
+
+  krankenhaus_1
+  krankenhaus_2
+
+  zahnbehandlung_1
+  zahnbehandlung_2
+
+  sonstiges_1
+  sonstiges_2
+
+  pflege_1
+  pflege_2
+  pflege_3
 
   von_datum
   bis_datum
 );
-
 
 # Get get parameters
 my $q = CGI->new;
@@ -92,14 +115,14 @@ my $datum_dots       =  strftime "%e.%m.%Y", localtime;
 my $dir         = 'filled_forms';
 my $filename    = sprintf 'leistungs_antrag_%s.pdf', $datum_underscore;
 
-
-# process pdfs
+# pprepare pdf generation
 my $w = Writer->new({
   filename => '../filled_forms/' . $filename,
   compress => 1,
 });
 
 $w->add_page({
+  template => $templates[0],
   elements => [
     { x => 50, y => 680, txt => $sender, font => 'Arial', size => 7 },
     { x => 50, y => 663, multiline => $addr_debeka, font=> 'Arial'},
@@ -107,7 +130,7 @@ $w->add_page({
 });
 
 $w->add_page({
-  template => $templates[0],
+  template => $templates[1],
   elements => [
     { x => 65,  y => 778, txt => $service_nr },
     { x => 52,  y => 760, txt => $vorname . ' ' . $nachname },
@@ -127,7 +150,7 @@ $w->add_page({
 });
 
 $w->add_page({
-  template => $templates[1],
+  template => $templates[2],
   elements => [
     { x => 68,  y => 676, txt => $sender, size => 7, font=>'Arial'},
     { x => 58,  y => 261, txt => $pflege_kreuz },
@@ -145,7 +168,7 @@ $w->add_page({
 });
 
 $w->add_page({
-  template => $templates[2],
+  template => $templates[3],
   elements => [
     { x => 85,  y => 788, txt => $personalnummer },
     { x => 335, y => 788, txt => $nachname },
@@ -156,15 +179,13 @@ $w->add_page({
   ],
 });
 
-
-print $q->header(
-    '-type' => 'text/html',
-    '-charset' => 'UTF-8'
-);
-
+# print html data
+print $q->header( '-type' => 'text/html', '-charset' => 'UTF-8');
 print html_output();
 
-  $w->write;
+# create pdfs
+$w->write;
+
 sub html_output {
   my $tmpl = html_template();
 
@@ -190,11 +211,14 @@ sub get_value {
 
 sub get_avalue {
   my( $param_name ) = @_;
-  if( $q->param( $param_name ) ){
-    my @v = split "\n", $q->param( $param_name );
-    return \@v;
+  my @v = ();
+  for my $i (1..9) {
+    my $p = $q->param( $param_name . '_' . $i );
+    if( $p ){
+      push( @v , $p );
+    }
   }
-  return [];
+  return \@v;
 }
 
 sub html_template {
@@ -242,10 +266,8 @@ sub html_template {
     </style>
   </head>
   <body>
-
     %s
     <form action="">
-
      <div><label for="sender">sender</label><input type="text" name="sender" value="%s"></div>
      <div><label for="addr_debeka">addr_debeka</label><textarea type="text" name="addr_debeka">%s</textarea></div>
      <div><label for="vorname">vorname</label><input type="text" name="vorname" value="%s"></div>
@@ -255,12 +277,113 @@ sub html_template {
      <div><label for="geb_dots">geb_dots</label><input type="text" name="geb_dots" value="%s"></div>
      <div><label for="service_nr">service_nr</label><input type="text" name="service_nr" value="%s"></div>
      <div><label for="personalnummer">personalnummer</label><input type="text" name="personalnummer" value="%s"></div>
-     <div><label for="arzneimittel">arzneimittel</label><textarea type="text" name="arzneimittel">%s</textarea></div>
-     <div><label for="ambulante_behandlung">ambulante_behandlung</label><textarea type="text" name="ambulante_behandlung">%s</textarea></div>
-     <div><label for="krankenhaus">krankenhaus</label><textarea type="text" name="krankenhaus">%s</textarea></div>
-     <div><label for="zahnbehandlung">zahnbehandlung</label><textarea type="text" name="zahnbehandlung">%s</textarea></div>
-     <div><label for="sonstiges">sonstiges</label><textarea type="text" name="sonstiges">%s</textarea></div>
-     <div><label for="pflege">pflege</label><textarea type="text" name="pflege">%s</textarea></div>
+
+     <div>
+       <label for="arzneimittel_1">arzneimittel 1</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_1" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="arzneimittel_2">arzneimittel 2</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_2" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="arzneimittel_3">arzneimittel 3</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_3" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="arzneimittel_4">arzneimittel 4</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_4" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="arzneimittel_5">arzneimittel 5</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_5" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="arzneimittel_6">arzneimittel 6</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_6" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="arzneimittel_7">arzneimittel 7</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_7" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+
+     <div>
+       <label for="ambulante_behandlung_1">ambulante behandlung 1</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_1" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="ambulante_behandlung_2">ambulante behandlung 2</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_2" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="ambulante_behandlung_3">ambulante behandlung 3</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_3" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="ambulante_behandlung_4">ambulante behandlung 4</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_4" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="ambulante_behandlung_5">ambulante behandlung 5</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_5" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="ambulante_behandlung_6">ambulante behandlung 6</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_6" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="ambulante_behandlung_7">ambulante behandlung 7</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_7" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="ambulante_behandlung_8">ambulante behandlung 8</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_8" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="ambulante_behandlung_9">ambulante behandlung 9</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_9" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+
+     <div>
+       <label for="krankenhaus_1">krankenhaus 1</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="krankenhaus_1" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="krankenhaus_2">krankenhaus 2</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="krankenhaus_2" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+
+     <div>
+       <label for="zahnbehandlung_1">zahnbehandlung 1</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="zahnbehandlung_1" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="zahnbehandlung_2">zahnbehandlung 2</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="zahnbehandlung_2" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+
+     <div>
+       <label for="sonstiges_1">sonstiges 1</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="sonstiges_1" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="sonstiges_2">sonstiges 2</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="sonstiges_2" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+
+     <div>
+       <label for="pflege_1">pflege 1</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_1" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="pflege_2">pflege 2</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_2" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+     <div>
+       <label for="pflege_3">pflege 3</label>
+       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_3" pattern="^\d+,\d{2}$" value="%s">
+     </div>
+
      <div><label for="von_datum">von_datum</label><input type="text" name="von_datum" value="%s"></div>
      <div><label for="bis_datum">bis_datum</label><input type="text" name="bis_datum" value="%s"></div>
       <input type="submit" value="In PDF umwandeln">
