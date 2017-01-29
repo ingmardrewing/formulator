@@ -9,7 +9,16 @@ my $q = CGI->new;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 use Writer;
+use YAML::Tiny;
 
+my $conf = YAML::Tiny->read('conf/conf.yaml')->[0];
+
+my @templates = (
+  $conf->{'template_1'},
+  $conf->{'template_2'},
+  $conf->{'template_3'},
+  $conf->{'template_4'}
+);
 
 my @fields = qw(
   sender
