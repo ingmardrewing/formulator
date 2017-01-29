@@ -19,7 +19,6 @@ my @templates = (
   $conf->{'template_4'}
 );
 
-my $q = CGI->new;
 my @fields = qw(
   sender
 
@@ -157,6 +156,7 @@ $w->add_page({
   ],
 });
 
+my $q = CGI->new;
 my $param = $q->param('file');
 $param =~ m{(pdf)};
 
