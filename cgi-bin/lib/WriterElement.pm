@@ -30,7 +30,6 @@ sub _size {
   return $self->{size};
 }
 
-
 sub _font {
   my($self, $val) = @_;
   if( $val ){
@@ -38,7 +37,6 @@ sub _font {
   }
   return $self->{font};
 }
-
 
 sub _x {
   my($self, $val) = @_;
@@ -48,7 +46,6 @@ sub _x {
   return $self->{x};
 }
 
-
 sub _y {
   my($self, $val) = @_;
   if( $val ){
@@ -56,7 +53,6 @@ sub _y {
   }
   return $self->{y};
 }
-
 
 sub _grid {
   my($self, $val) = @_;
@@ -73,7 +69,6 @@ sub _currency_column {
   }
   return $self->{currency_column};
 }
-
 
 sub _txt {
   my($self, $val) = @_;
@@ -126,7 +121,6 @@ sub _write_currency_column {
     $x = $init_x;
   }
 }
-
 
 sub _write_reversed {
   my ($self) = @_;
@@ -245,6 +239,5 @@ sub page {
   }
   return $self->{page};
 }
-
 
 1;
