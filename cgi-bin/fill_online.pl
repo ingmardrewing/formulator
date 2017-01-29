@@ -157,20 +157,6 @@ $w->add_page({
 });
 
 my $q = CGI->new;
-my $param = $q->param('file');
-$param =~ m{(pdf)};
-
-if( $1 eq 'pdf' ){
-  print $q->header(
-    '-type' => 'text/plain',
-    '-charset' => 'UTF-8',
-    '-Content-Disposition'
-        => 'attachment; filename="'. $filename .'"'
-  );
-
-  $w->write_to_stdout;
-  exit;
-}
 
 print $q->header(
     '-type' => 'text/html',
