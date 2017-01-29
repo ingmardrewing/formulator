@@ -261,7 +261,6 @@ sub html_template {
       color: white;
       display: inline-block;
       padding: 15px;
-      padding-bottom: 30px;
       font-size: 16px;
       width: auto;
       vertical-align: middle;
