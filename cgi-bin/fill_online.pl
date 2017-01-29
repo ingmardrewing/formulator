@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use POSIX qw(strftime);
 use CGI qw/-utf8 :standard/;
-my $q = CGI->new;
 
 use FindBin;
 use lib "$FindBin::Bin/lib";
@@ -20,6 +19,7 @@ my @templates = (
   $conf->{'template_4'}
 );
 
+my $q = CGI->new;
 my @fields = qw(
   sender
 
