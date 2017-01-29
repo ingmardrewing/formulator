@@ -244,7 +244,11 @@ sub html_template {
     }
     input, textarea {
       width: 300px;
-      height: 30px;
+      font-size: 14px;
+      padding: 5px;
+    }
+    td input {
+      text-align: right;
     }
     input[type="checkbox"]{
       width: 30px;
@@ -263,9 +267,13 @@ sub html_template {
       vertical-align: middle;
       border-radius: 5px;
     }
+    .container {
+      width: 50%;
+    }
     </style>
   </head>
   <body>
+  <div class="container">
     %s
     <form action="">
      <div><label for="sender">sender</label><input type="text" name="sender" value="%s"></div>
@@ -279,115 +287,107 @@ sub html_template {
      <div><label for="personalnummer">personalnummer</label><input type="text" name="personalnummer" value="%s"></div>
 
      <div>
-       <label for="arzneimittel_1">arzneimittel 1</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_1" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="arzneimittel_2">arzneimittel 2</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_2" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="arzneimittel_3">arzneimittel 3</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_3" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="arzneimittel_4">arzneimittel 4</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_4" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="arzneimittel_5">arzneimittel 5</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_5" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="arzneimittel_6">arzneimittel 6</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_6" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="arzneimittel_7">arzneimittel 7</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_7" pattern="^\d+,\d{2}$" value="%s">
+     <table>
+       <tr>
+       <td>
+         <label for="arzneimittel_1">Arzneimittel</label>
+       </td>
+       <td>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_1" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_2" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_3" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_4" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_5" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_6" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="arzneimittel_7" pattern="^\d+,\d{2}$" value="%s"><br>
+       </td>
+       </tr>
+     </table>
      </div>
 
      <div>
-       <label for="ambulante_behandlung_1">ambulante behandlung 1</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_1" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="ambulante_behandlung_2">ambulante behandlung 2</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_2" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="ambulante_behandlung_3">ambulante behandlung 3</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_3" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="ambulante_behandlung_4">ambulante behandlung 4</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_4" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="ambulante_behandlung_5">ambulante behandlung 5</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_5" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="ambulante_behandlung_6">ambulante behandlung 6</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_6" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="ambulante_behandlung_7">ambulante behandlung 7</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_7" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="ambulante_behandlung_8">ambulante behandlung 8</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_8" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="ambulante_behandlung_9">ambulante behandlung 9</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_9" pattern="^\d+,\d{2}$" value="%s">
+     <table>
+       <tr>
+       <td>
+         <label for="ambulante_behandlung_1">Ambulante Behandlung</label>
+       </td>
+       <td>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_1" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_2" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_3" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_4" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_5" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_6" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_7" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_8" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="ambulante_behandlung_9" pattern="^\d+,\d{2}$" value="%s"><br>
+       </td>
+       </tr>
+   </table>
      </div>
 
      <div>
-       <label for="krankenhaus_1">krankenhaus 1</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="krankenhaus_1" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="krankenhaus_2">krankenhaus 2</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="krankenhaus_2" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-
-     <div>
-       <label for="zahnbehandlung_1">zahnbehandlung 1</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="zahnbehandlung_1" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="zahnbehandlung_2">zahnbehandlung 2</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="zahnbehandlung_2" pattern="^\d+,\d{2}$" value="%s">
+     <table>
+       <tr>
+       <td>
+         <label for="krankenhaus_1">Krankenhaus</label>
+       </td>
+       <td>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="krankenhaus_1" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="krankenhaus_2" pattern="^\d+,\d{2}$" value="%s"><br>
+       </td>
+       </tr>
+     </table>
      </div>
 
      <div>
-       <label for="sonstiges_1">sonstiges 1</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="sonstiges_1" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="sonstiges_2">sonstiges 2</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="sonstiges_2" pattern="^\d+,\d{2}$" value="%s">
+     <table>
+       <tr>
+       <td>
+         <label for="zahnbehandlung_1">Zahnbehandlung</label>
+       </td>
+       <td>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="zahnbehandlung_1" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="zahnbehandlung_2" pattern="^\d+,\d{2}$" value="%s"><br>
+       </td>
+       </tr>
+     </table>
      </div>
 
      <div>
-       <label for="pflege_1">pflege 1</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_1" pattern="^\d+,\d{2}$" value="%s">
+     <table>
+     <tr>
+       <td>
+         <label for="sonstiges_1">Sonstiges</label>
+       </td>
+       <td>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="sonstiges_1" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="sonstiges_2" pattern="^\d+,\d{2}$" value="%s"><br>
+       </td>
+       </tr>
+     </table>
      </div>
+
      <div>
-       <label for="pflege_2">pflege 2</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_2" pattern="^\d+,\d{2}$" value="%s">
-     </div>
-     <div>
-       <label for="pflege_3">pflege 3</label>
-       <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_3" pattern="^\d+,\d{2}$" value="%s">
+     <table>
+     <tr>
+       <td>
+         <label for="pflege_1">Pflege</label>
+       </td>
+       <td>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_1" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_2" pattern="^\d+,\d{2}$" value="%s"><br>
+         <input type="text" title="Eurbetrag mit Cents abgetrennt durch ein Komma" name="pflege_3" pattern="^\d+,\d{2}$" value="%s"><br>
+       </td>
+       </tr>
+     </table>
      </div>
 
      <div><label for="von_datum">von_datum</label><input type="text" name="von_datum" value="%s"></div>
      <div><label for="bis_datum">bis_datum</label><input type="text" name="bis_datum" value="%s"></div>
       <input type="submit" value="In PDF umwandeln">
     </form>
+    </div>
   </body>
 </html>
 HTML
