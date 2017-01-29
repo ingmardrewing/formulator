@@ -266,6 +266,9 @@ sub html_template {
       vertical-align: middle;
       border-radius: 5px;
     }
+    input + br + input {
+      margin-top: 3px;
+    }
     .container {
       width: 50%;
     }
