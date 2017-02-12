@@ -235,6 +235,7 @@ sub html_template {
     <style>
     body{
       margin:30px;
+      font-family: Helvetica, Arial, Verdana, sans-serif;
     }
     label {
       display:inline-block;
