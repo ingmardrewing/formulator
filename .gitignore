@@ -18,3 +18,8 @@ nytprof.out
 *.o
 *.bs
 /_eumm/
+cgi-bin/fill.pl
+cgi-bin/input.txt
+cgi-bin/lib/YAML/
+filled_forms/
+templates/

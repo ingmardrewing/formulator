@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use POSIX qw(strftime);
 use CGI qw/-utf8 :standard/;
+use URI::Escape;
 
 use FindBin;
 use lib "$FindBin::Bin/lib";
@@ -206,7 +207,11 @@ sub get_link {
 
 sub get_value {
   my( $param_name ) = @_;
-  return $q->param( $param_name ) // '';
+  my $v = $q->param( $param_name ) // '';
+  if( $v =~ m{%}){
+    return uri_unescape( $v );
+  }
+  return $v;
 }
 
 sub get_avalue {
@@ -272,12 +277,33 @@ sub html_template {
     .container {
       width: 50%;
     }
+    @media screen and (max-width: 768px){
+      table {
+        width: 100%;
+      }
+      tr td:first-child {
+        width: 25%;
+      }
+      tr td:first-child + td {
+        width: 75%;
+      }
+      .container {
+        width: 100%;
+      }
+      input,
+      textarea
+      {
+        width: 100%;
+        font-size: 16px;
+      }
+    }
     </style>
   </head>
   <body>
   <div class="container">
     %s
     <form action="">
+      <input type="submit" value="In PDF umwandeln"><br>
      <div><label for="sender">sender</label><input type="text" name="sender" value="%s"></div>
      <div><label for="addr_debeka">addr_debeka</label><textarea type="text" name="addr_debeka">%s</textarea></div>
      <div><label for="vorname">vorname</label><input type="text" name="vorname" value="%s"></div>
@@ -387,7 +413,6 @@ sub html_template {
 
      <div><label for="von_datum">von_datum</label><input type="text" name="von_datum" value="%s"></div>
      <div><label for="bis_datum">bis_datum</label><input type="text" name="bis_datum" value="%s"></div>
-      <input type="submit" value="In PDF umwandeln">
     </form>
     </div>
   </body>
