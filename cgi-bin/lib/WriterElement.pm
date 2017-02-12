@@ -116,7 +116,9 @@ sub _write_currency_column {
   for my $cost(@{$self->_currency_column}){
     my $c = $cost ;
     $c =~ s/[.,]//g;
+    my $tx = $x - 16;
     $self->_write_reversed_with_params( $x, $y, $c );
+    $self->_write_reversed_with_params( $tx, $y, ',' );
     $y -= 15.5;
     $x = $init_x;
   }

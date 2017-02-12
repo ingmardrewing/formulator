@@ -21,6 +21,9 @@ my @templates = (
 );
 
 my @fields = qw(
+  von_datum
+  bis_datum
+
   sender
 
   addr_debeka
@@ -65,8 +68,6 @@ my @fields = qw(
   pflege_2
   pflege_3
 
-  von_datum
-  bis_datum
 );
 
 # Get get parameters
@@ -96,6 +97,7 @@ my $bis_datum  = get_value('bis_datum');
 # preprare data
 my $is_bevm = 1;
 my $bevollmaechtigter = $is_bevm ? '_' x 13 : '' ;
+my $bevollmaechtigter_debeka = $is_bevm ? '(Bevollmächtigter)' : '' ;
 
 my $geb = join('',($geb_dots =~ m{(\d+)}g));
 
@@ -138,6 +140,7 @@ $w->add_page({
     { x => 52,  y => 742, txt => $strasse_nr },
     { x => 60,  y => 726, txt => $plz_ort },
     { x => 314, y => 680, txt => $datum_dots },
+    { x => 394, y => 665, txt => $bevollmaechtigter_debeka, size => 9 },
     { x => 122, y => 494, grid => uc $vorname },
     { x => 122, y => 476, grid => $geb },
     { x => 200, y => 440, currency_column => $arzneimittel },
@@ -146,7 +149,7 @@ $w->add_page({
     { x => 200, y => 160, currency_column => $zahnbehandlung  },
     { x => 200, y => 130, currency_column => $sonstiges  },
     { x => 200, y => 98, currency_column => $pflege  },
-    { x => 200, y => 36, reversed => $cent_sum },
+    { x => 200, y => 36, currency_column => [$cent_sum] },
   ],
 });
 
@@ -305,6 +308,9 @@ sub html_template {
     %s
     <form action="">
       <input type="submit" value="In PDF umwandeln"><br>
+
+     <div><label for="von_datum">Pflege von_datum</label><input type="text" name="von_datum" value="%s"></div>
+     <div><label for="bis_datum">Pflege bis_datum</label><input type="text" name="bis_datum" value="%s"></div>
      <div><label for="sender">sender</label><input type="text" name="sender" value="%s"></div>
      <div><label for="addr_debeka">addr_debeka</label><textarea type="text" name="addr_debeka">%s</textarea></div>
      <div><label for="vorname">vorname</label><input type="text" name="vorname" value="%s"></div>
@@ -412,8 +418,6 @@ sub html_template {
      </table>
      </div>
 
-     <div><label for="von_datum">von_datum</label><input type="text" name="von_datum" value="%s"></div>
-     <div><label for="bis_datum">bis_datum</label><input type="text" name="bis_datum" value="%s"></div>
     </form>
     </div>
   </body>
